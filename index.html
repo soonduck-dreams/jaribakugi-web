@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://unpkg.com/konva@8/konva.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="grid">
+            <div id="canvas-parent">
+                <div id="canvas"></div>
+            </div>
+            <div id="sidebar">
+                <h1>자리바꾸기닷컴</h1>
+                <div class="sidebar-content" id="page-make-classroom">
+                    <h2>자리 바꾸기에 누가 참여하나요?</h2>
+                    <table>
+                        <tr>
+                            <td class="firstColumn">남자</td>
+                            <td><textarea id="peopleMale" name="peopleMale" placeholder="김철수, 이영희, 최길동, 이렇게, 구분해, 입력하세요" spellcheck="false"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="firstColumn">여자</td>
+                            <td><textarea id="peopleFemale" name="peopleFemale" placeholder="김철수, 이영희, 최길동, 이렇게, 구분해, 입력하세요" spellcheck="false"></textarea></td>
+                        </tr>
+                    </table><br>
+                    <h2>책상을 어떻게 배치할까요?</h2>
+                    <table>
+                        <tr>
+                            <td>
+                                <label>세로로 <input type="text" id="table-column" placeholder="몇" maxlength="1"> 줄</label>
+                            </td>
+                            <td>
+                                <label><input type="checkbox"> 남녀 짝꿍</label>
+                            </td>
+                        </tr>
+                    </table><br>
+                    <h2>위 내용대로 교실을 만들까요?</h2>
+                    <button type="button" class="sidebar-button">네, 만들어주세요</button>
+                </div>
+                <div class="sidebar-content" id="page-shuffle" style="display: none">
+                    <p id="classroomCreated">교실이 만들어졌어요.<br>책상을 드래그해서 자유롭게 배치를 조정해 보세요.</p>
+                    <label><input type="checkbox"> 북소리</label>
+                    <label>자리 바꾼 다음 이름을 <select name="postDisplay">
+                        <option value="hide">숨기기</option>
+                        <option value="show">보이기</option>
+                    </select></label>
+                    <button type="button" class="sidebar-button">자리 바꾸기 시작!</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="layoutManager.js"></script>
+        <script src="table.js"></script>
+        <script src="student.js"></script>
+        <script src="classroom.js"></script>
+        <script>
+            window.addEventListener("load", () => layoutManager.initSpace());
+            window.addEventListener("resize", () => layoutManager.trimToFit());
+
+            t = new Table({x: 60, y: 35}, "John Doe");
+        </script>
+    </body>
+</html>
