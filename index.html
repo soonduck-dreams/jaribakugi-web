@@ -4,6 +4,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://unpkg.com/konva@8/konva.min.js"></script>
         <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     </head>
     <body>
         <div id="grid">
@@ -17,11 +20,11 @@
                     <table>
                         <tr>
                             <td class="firstColumn">남자</td>
-                            <td><textarea id="peopleMale" name="peopleMale" placeholder="김철수, 이영희, 최길동, 이렇게, 구분해, 입력하세요" spellcheck="false"></textarea></td>
+                            <td><textarea id="people-male" placeholder="김철수, 이영희, 최길동, 이렇게, 구분해, 입력하세요" spellcheck="false"></textarea></td>
                         </tr>
                         <tr>
                             <td class="firstColumn">여자</td>
-                            <td><textarea id="peopleFemale" name="peopleFemale" placeholder="김철수, 이영희, 최길동, 이렇게, 구분해, 입력하세요" spellcheck="false"></textarea></td>
+                            <td><textarea id="people-female" placeholder="김철수, 이영희, 최길동, 이렇게, 구분해, 입력하세요" spellcheck="false"></textarea></td>
                         </tr>
                     </table><br>
                     <h2>책상을 어떻게 배치할까요?</h2>
@@ -31,26 +34,30 @@
                                 <label>세로로 <input type="text" id="table-column" placeholder="몇" maxlength="1"> 줄</label>
                             </td>
                             <td>
-                                <label><input type="checkbox"> 남녀 짝꿍</label>
+                                <label><input type="checkbox" id="pairing-mf"> 남녀 짝꿍</label>
                             </td>
                         </tr>
                     </table><br>
                     <h2>위 내용대로 교실을 만들까요?</h2>
-                    <button type="button" class="sidebar-button">네, 만들어주세요</button>
+                    <button type="button" class="sidebar-button" onclick="c.make(); sidebarManager.openPage('page-shuffle');">네, 만들어주세요</button>
                 </div>
                 <div class="sidebar-content" id="page-shuffle" style="display: none">
-                    <p id="classroomCreated">교실이 만들어졌어요.<br>책상을 드래그해서 자유롭게 배치를 조정해 보세요.</p>
-                    <label><input type="checkbox"> 북소리</label>
+                    <h2>교실이 만들어졌어요.</h2>
+                    <p>책상을 드래그해서 옮길 수 있어요.<br>한번 해보세요!</p>
+                    <p>이전 단계로 돌아가려면 <a href="javascript:void(0)" onclick="sidebarManager.openPage('page-make-classroom')">여기</a>를 누르세요.</p>
+                    <h2>자리바꾸기를 시작할까요?</h2>
+                    <button type="button" class="sidebar-button" onclick="">자리 바꾸기 시작!</button>
                     <label>자리 바꾼 다음 이름을 <select name="postDisplay">
                         <option value="hide">숨기기</option>
                         <option value="show">보이기</option>
                     </select></label>
-                    <button type="button" class="sidebar-button">자리 바꾸기 시작!</button>
                 </div>
             </div>
         </div>
 
+        <script src="constant.js"></script>
         <script src="layoutManager.js"></script>
+        <script src="sidebarManager.js"></script>
         <script src="table.js"></script>
         <script src="student.js"></script>
         <script src="classroom.js"></script>
@@ -58,7 +65,7 @@
             window.addEventListener("load", () => layoutManager.initSpace());
             window.addEventListener("resize", () => layoutManager.trimToFit());
 
-            t = new Table({x: 60, y: 35}, "John Doe");
+            let c = new Classroom();
         </script>
     </body>
 </html>

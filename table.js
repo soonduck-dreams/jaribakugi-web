@@ -6,7 +6,7 @@ class TableGraphic {
     constructor(pos, name) {
         let tableRect = new Konva.Rect({
             x: 0, y: 0,
-            width: 100, height: 50,
+            width: TABLE_WIDTH, height: TABLE_HEIGHT,
             name: 'tableRect',
             fill: 'white', stroke: 'black', strokeWidth: 2,
         });
@@ -50,6 +50,7 @@ class TableGraphic {
 
     remove() {
         this.tableGroup.destroy();
+        this.tableGroup = null;
     }
 
     #alignCenter(self) {
@@ -88,5 +89,10 @@ class Table {
     setPos(pos) {
         this.pos = pos;
         this.#tableGraphic.setPos(pos);
+    }
+
+    remove() {
+        this.#tableGraphic.remove();
+        this.#tableGraphic = null;
     }
 }
