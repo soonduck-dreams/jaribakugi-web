@@ -19,10 +19,20 @@ class Classroom {
         } else {
             this.#makeTableWithPairingMF();
         }
+
+        layoutManager.refitSpace();
     }
 
     shuffle() {
-        
+        const REPEAT = 2000;
+
+        if (document.getElementById("pairing-mf").checked === false) {
+            let combinedTableList = this.maleTableList.concat(this.femaleTableList);
+            this.#repeatSwapTwoTable(combinedTableList, REPEAT);
+        } else {
+            this.#repeatSwapTwoTable(this.maleTableList, REPEAT);
+            this.#repeatSwapTwoTable(this.femaleTableList, REPEAT);
+        }
     }
 
     #cleanTableList() {
@@ -123,7 +133,22 @@ class Classroom {
         }
     }
 
-    #swapTwoTable() {
+    #repeatSwapTwoTable(tableList, repeat) {
+        for (let i = 0; i < repeat; i++) {
+            this.#swapTwoTable(tableList);
+        }
+    }
 
+    #swapTwoTable(tableList) {
+        let a = this.#randomIndex(tableList);
+        let b = this.#randomIndex(tableList);
+
+        let tempPos = tableList[a].getPos();
+        tableList[a].setPos(tableList[b].getPos());
+        tableList[b].setPos(tempPos);
+    }
+
+    #randomIndex(list) {
+        return Math.floor(Math.random() * list.length);
     }
 }

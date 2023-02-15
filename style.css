@@ -6,7 +6,7 @@ body {
 
 #grid {
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 350px;
 }
 
 #grid #canvas-parent #canvas {
@@ -36,12 +36,15 @@ body {
 
 h1 {
     text-align: center;
+    font-size: 36px;
+    margin: 0;
+    margin-top: 20px;
 }
 
 h2 {
     font-size: 20px;
     margin: 0;
-    margin-top: 15px;
+    margin-top: 30px;
     margin-bottom: 5px;
     text-align: center;
 }
@@ -54,6 +57,12 @@ p {
 a {
     color: blue;
     font-weight: bold;
+}
+
+ul {
+    padding-left: 32px;
+    list-style-type: circle;
+    margin: 0;
 }
 
 select {

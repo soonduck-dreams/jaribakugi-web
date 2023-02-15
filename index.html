@@ -26,27 +26,31 @@
                             <td class="firstColumn">여자</td>
                             <td><textarea id="people-female" placeholder="김철수, 이영희, 최길동, 이렇게, 구분해, 입력하세요" spellcheck="false"></textarea></td>
                         </tr>
-                    </table><br>
+                    </table>
                     <h2>책상을 어떻게 배치할까요?</h2>
                     <table>
                         <tr>
                             <td>
-                                <label>세로로 <input type="text" id="table-column" placeholder="몇" maxlength="1"> 줄</label>
+                                <label>세로로 <input type="text" id="table-column" placeholder="몇" maxlength="2"> 줄</label>
                             </td>
                             <td>
                                 <label><input type="checkbox" id="pairing-mf"> 남녀 짝꿍</label>
                             </td>
                         </tr>
-                    </table><br>
+                    </table>
                     <h2>위 내용대로 교실을 만들까요?</h2>
                     <button type="button" class="sidebar-button" onclick="c.make(); sidebarManager.openPage('page-shuffle');">네, 만들어주세요</button>
                 </div>
                 <div class="sidebar-content" id="page-shuffle" style="display: none">
                     <h2>교실이 만들어졌어요.</h2>
-                    <p>책상을 드래그해서 옮길 수 있어요.<br>한번 해보세요!</p>
+                    <ul>
+                        <li><p>책상을 드래그해서 옮길 수 있어요.</p></li>
+                        <li><p>빈 곳을 드래그해서 움직일 수 있어요.</p></li>
+                        <li><p>마우스 스크롤로 크기 조절이 돼요.</p></li>
+                    </ul>
                     <p>이전 단계로 돌아가려면 <a href="javascript:void(0)" onclick="sidebarManager.openPage('page-make-classroom')">여기</a>를 누르세요.</p>
                     <h2>자리바꾸기를 시작할까요?</h2>
-                    <button type="button" class="sidebar-button" onclick="">자리 바꾸기 시작!</button>
+                    <button type="button" class="sidebar-button" onclick="c.shuffle()">자리 바꾸기 시작!</button>
                     <label>자리 바꾼 다음 이름을 <select name="postDisplay">
                         <option value="hide">숨기기</option>
                         <option value="show">보이기</option>

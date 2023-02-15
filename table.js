@@ -1,5 +1,5 @@
 class TableGraphic {
-    tableGroup = new Konva.Group({
+    #tableGroup = new Konva.Group({
         draggable: true,
     });
 
@@ -15,41 +15,49 @@ class TableGraphic {
             x: 0, y: 0,
             text: name,
             name: 'tableText',
-            fontSize: 20,
+            fontSize: 28,
+            fontFamily: 'Noto Sans KR, sans-serif',
             fill: 'black',
         });
 
         this.#alignCenter(tableRect);
         this.#alignCenter(tableText);
 
-        this.tableGroup.x(pos.x);
-        this.tableGroup.y(pos.y);
-        this.tableGroup.on('mouseover', function() {
+        this.#tableGroup.x(pos.x);
+        this.#tableGroup.y(pos.y);
+        this.#tableGroup.on('mouseover', function() {
             document.body.style.cursor = 'pointer';
         });
-        this.tableGroup.on('mouseout', function() {
+        this.#tableGroup.on('mouseout', function() {
             document.body.style.cursor = 'default';
         });
 
-        this.tableGroup.add(tableRect);
-        this.tableGroup.add(tableText);
-        layoutManager.layer.add(this.tableGroup);
+        this.#tableGroup.add(tableRect);
+        this.#tableGroup.add(tableText);
+        layoutManager.layer.add(this.#tableGroup);
     }
 
     setPos(pos) {
-        this.tableGroup.x(pos.x);
-        this.tableGroup.y(pos.y);
+        this.#tableGroup.x(pos.x);
+        this.#tableGroup.y(pos.y);
+    }
+
+    getPos() {
+        return {
+            x: this.#tableGroup.x(),
+            y: this.#tableGroup.y()
+        }
     }
 
     setText(text) {
-        let tableText = this.tableGroup.findOne('.tableText');
+        let tableText = this.#tableGroup.findOne('.tableText');
         tableText.text(text);
 
         this.#alignCenter(tableText);
     }
 
     remove() {
-        this.tableGroup.destroy();
+        this.#tableGroup.destroy();
         this.tableGroup = null;
     }
 
@@ -89,6 +97,10 @@ class Table {
     setPos(pos) {
         this.pos = pos;
         this.#tableGraphic.setPos(pos);
+    }
+
+    getPos() {
+        return this.#tableGraphic.getPos();
     }
 
     remove() {
