@@ -3,7 +3,11 @@ class TableGraphic {
         draggable: true,
     });
 
-    constructor(pos, name) {
+    #parent = null;
+
+    constructor(pos, name, parent) {
+        this.#parent = parent;
+
         let tableRect = new Konva.Rect({
             x: 0, y: 0,
             width: TABLE_WIDTH, height: TABLE_HEIGHT,
@@ -31,6 +35,9 @@ class TableGraphic {
         this.#tableGroup.on('mouseout', function() {
             document.body.style.cursor = 'default';
         });
+        this.#tableGroup.on('mouseup', function() {
+            this.setDisplay('name', this.#parent.name);
+        }.bind(this));
 
         this.#tableGroup.add(tableRect);
         this.#tableGroup.add(tableText);
@@ -49,11 +56,36 @@ class TableGraphic {
         }
     }
 
-    setText(text) {
+    setText(text, color) {
         let tableText = this.#tableGroup.findOne('.tableText');
         tableText.text(text);
+        tableText.fill(color);
 
         this.#alignCenter(tableText);
+    }
+
+    setRectColor(color) {
+        let tableFill = this.#tableGroup.findOne('.tableRect');
+        tableFill.fill(color);
+    }
+
+    setDisplay(type, name) {
+        switch (type) {
+            case 'name':
+                this.setText(name, 'black');
+                this.setRectColor('rgb(255, 255, 220)');
+                break;
+            case 'hide':
+                this.setText('???', 'white');
+                this.setRectColor('rgb(60, 60, 60)');
+                break;
+            case 'one':
+                this.setText(cho_hangul(name[randomIndex(name)]), 'white');
+                this.setRectColor('rgb(60, 60, 60)');
+                break;
+            default:
+                console.log("Table.setDisplay(): 올바른 displayType이 아닙니다!");
+        }
     }
 
     remove() {
@@ -76,22 +108,13 @@ class Table {
     constructor(pos, name) {
         this.name = name;
         this.pos = pos;
-        this.#tableGraphic = new TableGraphic({x: pos.x, y: pos.y}, name);
+        this.#tableGraphic = new TableGraphic({x: pos.x, y: pos.y}, name, this);
+        this.setDisplay('name');
     }
 
     setDisplay(type) {
         this.display = type;
-
-        switch (this.display) {
-            case 'name':
-                this.#tableGraphic.setText(this.name);
-                break;
-            case 'hide':
-                this.#tableGraphic.setText('???');
-                break;
-            default:
-                console.log("Table.setDisplay(): 올바른 displayType이 아닙니다! displayType은 name, hide 중 하나여야 합니다.");
-        }
+        this.#tableGraphic.setDisplay(type, this.name);
     }
 
     setPos(pos) {

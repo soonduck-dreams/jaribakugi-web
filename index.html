@@ -49,21 +49,23 @@
                         <li><p>마우스 스크롤로 크기 조절이 돼요.</p></li>
                     </ul>
                     <p>이전 단계로 돌아가려면 <a href="javascript:void(0)" onclick="sidebarManager.openPage('page-make-classroom')">여기</a>를 누르세요.</p>
-                    <h2>자리바꾸기를 시작할까요?</h2>
-                    <button type="button" class="sidebar-button" onclick="c.shuffle()">자리 바꾸기 시작!</button>
-                    <label>자리 바꾼 다음 이름을 <select name="postDisplay">
+                    <h2 id="refresh-shuffle-h2">자리바꾸기를 할까요?</h2>
+                    <button type="button" class="sidebar-button" id="refresh-shuffle-button" onclick="c.shuffle()">자리 바꾸기!</button>
+                    <label>자리 바꾼 다음 이름을 <select id="post-table-display">
                         <option value="hide">숨기기</option>
-                        <option value="show">보이기</option>
+                        <option value="name">보이기</option>
+                        <option value="one">한 글자 초성 보이기</option>
                     </select></label>
+                    <button type="button" class="sidebar-button" id="refresh-shuffle-button-2" onclick="c.discloseAll()">자리 모두 공개하기</button>
                 </div>
             </div>
         </div>
 
         <script src="constant.js"></script>
+        <script src="util.js"></script>
         <script src="layoutManager.js"></script>
         <script src="sidebarManager.js"></script>
         <script src="table.js"></script>
-        <script src="student.js"></script>
         <script src="classroom.js"></script>
         <script>
             window.addEventListener("load", () => layoutManager.initSpace());

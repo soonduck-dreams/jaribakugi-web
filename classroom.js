@@ -25,6 +25,10 @@ class Classroom {
 
     shuffle() {
         const REPEAT = 2000;
+        let postTableDisplay = document.getElementById("post-table-display").value;
+
+        this.#setDisplayAll(this.maleTableList, postTableDisplay);
+        this.#setDisplayAll(this.femaleTableList, postTableDisplay);
 
         if (document.getElementById("pairing-mf").checked === false) {
             let combinedTableList = this.maleTableList.concat(this.femaleTableList);
@@ -33,6 +37,14 @@ class Classroom {
             this.#repeatSwapTwoTable(this.maleTableList, REPEAT);
             this.#repeatSwapTwoTable(this.femaleTableList, REPEAT);
         }
+
+        sidebarManager.shuffled = true;
+        sidebarManager.refreshShufflePage();
+    }
+
+    discloseAll() {
+        this.#setDisplayAll(this.maleTableList, "name");
+        this.#setDisplayAll(this.femaleTableList, "name");
     }
 
     #cleanTableList() {
@@ -133,6 +145,12 @@ class Classroom {
         }
     }
 
+    #setDisplayAll(tableList, type) {
+        for (let i = 0; i < tableList.length; i++) {
+            tableList[i].setDisplay(type);
+        }
+    }
+
     #repeatSwapTwoTable(tableList, repeat) {
         for (let i = 0; i < repeat; i++) {
             this.#swapTwoTable(tableList);
@@ -140,15 +158,11 @@ class Classroom {
     }
 
     #swapTwoTable(tableList) {
-        let a = this.#randomIndex(tableList);
-        let b = this.#randomIndex(tableList);
+        let a = randomIndex(tableList);
+        let b = randomIndex(tableList);
 
         let tempPos = tableList[a].getPos();
         tableList[a].setPos(tableList[b].getPos());
         tableList[b].setPos(tempPos);
-    }
-
-    #randomIndex(list) {
-        return Math.floor(Math.random() * list.length);
     }
 }

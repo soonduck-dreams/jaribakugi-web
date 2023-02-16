@@ -7,3 +7,8 @@ const FIRST_TABLE_Y = TABLE_HEIGHT / 2 + TABLE_MARGIN;
 
 const TABLE_ADDER_X = TABLE_WIDTH + TABLE_MARGIN;
 const TABLE_ADDER_Y = TABLE_HEIGHT + TABLE_MARGIN;
+
+const Gender = {
+    MALE: 'm',
+    FEMALE: 'f',
+}; Object.freeze(Gender);
