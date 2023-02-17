@@ -21,6 +21,7 @@ class Classroom {
         }
 
         layoutManager.refitSpace();
+        this.#saveToLocalStroage();
     }
 
     shuffle() {
@@ -164,5 +165,12 @@ class Classroom {
         let tempPos = tableList[a].getPos();
         tableList[a].setPos(tableList[b].getPos());
         tableList[b].setPos(tempPos);
+    }
+
+    #saveToLocalStroage() {
+        localStorage.setItem('maleString', document.getElementById("people-male").value);
+        localStorage.setItem('femaleString', document.getElementById("people-female").value);
+        localStorage.setItem('tableColumn', document.getElementById("table-column").value);
+        localStorage.setItem('pairingMF', document.getElementById("pairing-mf").checked.toString());
     }
 }

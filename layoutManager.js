@@ -30,6 +30,8 @@ let layoutManager = {
         this.layer.add(this.initialText);
         this.stage.add(this.layer);
         this.layer.draw();
+
+        this.loadFromLocalStorage();
     },
 
     trimToFit: function() {
@@ -46,6 +48,13 @@ let layoutManager = {
         scale = 1;
         layoutManager.stage.scale({ x: scale, y: scale });
         layoutManager.stage.batchDraw();
+    },
+
+    loadFromLocalStorage: function() {
+        document.getElementById("people-male").value = localStorage.getItem('maleString');
+        document.getElementById("people-female").value = localStorage.getItem('femaleString');
+        document.getElementById("table-column").value = localStorage.getItem('tableColumn');
+        document.getElementById("pairing-mf").checked = JSON.parse(localStorage.getItem('pairingMF'));
     }
 
 };
