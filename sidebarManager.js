@@ -33,7 +33,7 @@ let sidebarManager = {
             refreshBtn.innerHTML = "한 번 더 자리 바꾸기!";
             
             if (postTableDisplay !== "name") {
-                refreshBtn2.style = "display: inline";
+                refreshBtn2.style = "display: flex";
             } else {
                 refreshBtn2.style = "display: none";
             }
