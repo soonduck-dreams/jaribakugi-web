@@ -141,3 +141,32 @@ input[type=checkbox] {
 #footer * {
     color: white;
 }
+
+#no-mobile {
+    display: none;
+    height: 100vh;
+}
+
+#no-mobile h1 {
+    font-size: 60px;
+}
+
+#no-mobile h2 {
+    font-size: 36px;
+}
+
+#no-mobile p {
+    font-size: 28px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+    #grid {
+        display: none;
+    }
+
+    #no-mobile {
+        display: block;
+    }
+}
