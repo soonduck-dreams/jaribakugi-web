@@ -38,5 +38,9 @@ let sidebarManager = {
                 refreshBtn2.style = "display: none";
             }
         }
+
+        document.querySelectorAll(".sidebar-button").forEach(button => {
+            button.disabled = false;
+        });
     },
 }

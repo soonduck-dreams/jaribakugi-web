@@ -5,6 +5,8 @@ class Classroom {
     maleTableList = [];
     femaleTableList = [];
 
+    #isShuffling = false;
+
     make() {
         this.maleStudentList = document.getElementById("people-male").value.split(/\s*,\s*/);
         this.femaleStudentList = document.getElementById("people-female").value.split(/\s*,\s*/);
@@ -25,22 +27,22 @@ class Classroom {
     }
 
     shuffle() {
-        const REPEAT = 2000;
-        let postTableDisplay = document.getElementById("post-table-display").value;
+        const drum = new Audio("drumroll.mp3");
 
-        this.#setDisplayAll(this.maleTableList, postTableDisplay);
-        this.#setDisplayAll(this.femaleTableList, postTableDisplay);
+        this.#setIsShuffling(true);
+
+        drum.play();
+        drum.addEventListener('ended', () => {
+            this.#setIsShuffling(false);
+        });
 
         if (document.getElementById("pairing-mf").checked === false) {
             let combinedTableList = this.maleTableList.concat(this.femaleTableList);
-            this.#repeatSwapTwoTable(combinedTableList, REPEAT);
+            this.#swapTwoTable(combinedTableList);
         } else {
-            this.#repeatSwapTwoTable(this.maleTableList, REPEAT);
-            this.#repeatSwapTwoTable(this.femaleTableList, REPEAT);
+            this.#swapTwoTable(this.maleTableList);
+            this.#swapTwoTable(this.femaleTableList);
         }
-
-        sidebarManager.shuffled = true;
-        sidebarManager.refreshShufflePage();
     }
 
     discloseAll() {
@@ -152,12 +154,6 @@ class Classroom {
         }
     }
 
-    #repeatSwapTwoTable(tableList, repeat) {
-        for (let i = 0; i < repeat; i++) {
-            this.#swapTwoTable(tableList);
-        }
-    }
-
     #swapTwoTable(tableList) {
         let a = randomIndex(tableList);
         let b = randomIndex(tableList);
@@ -165,6 +161,32 @@ class Classroom {
         let tempPos = tableList[a].getPos();
         tableList[a].setPos(tableList[b].getPos());
         tableList[b].setPos(tempPos);
+
+        setTimeout(() => {
+            if (this.#isShuffling == true) {
+                this.#swapTwoTable(tableList);
+            }
+        }, 1);
+    }
+
+    #setIsShuffling(value) {
+        this.#isShuffling = value;
+        
+        if (value == true) {
+            document.querySelectorAll(".sidebar-button").forEach(button => {
+                button.disabled = true;
+            });
+        } else if (value == false) {
+            let postTableDisplay = document.getElementById("post-table-display").value;
+
+            this.#setDisplayAll(this.maleTableList, postTableDisplay);
+            this.#setDisplayAll(this.femaleTableList, postTableDisplay);
+
+            sidebarManager.shuffled = true;
+            sidebarManager.refreshShufflePage();
+        } else {
+            console.log("setIsShuffling: 들어온 값이 boolean하지 않네요..");
+        }
     }
 
     #saveToLocalStroage() {
