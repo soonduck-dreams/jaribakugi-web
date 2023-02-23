@@ -38,10 +38,10 @@ class Classroom {
 
         if (document.getElementById("pairing-mf").checked === false) {
             let combinedTableList = this.maleTableList.concat(this.femaleTableList);
-            this.#swapTwoTable(combinedTableList);
+            this.#repeatSwapTwoTable(combinedTableList);
         } else {
-            this.#swapTwoTable(this.maleTableList);
-            this.#swapTwoTable(this.femaleTableList);
+            this.#repeatSwapTwoTable(this.maleTableList);
+            this.#repeatSwapTwoTable(this.femaleTableList);
         }
     }
 
@@ -154,17 +154,21 @@ class Classroom {
         }
     }
 
-    #swapTwoTable(tableList) {
-        let a = randomIndex(tableList);
-        let b = randomIndex(tableList);
+    #repeatSwapTwoTable(tableList) {
+        const REPEAT = 5;
 
-        let tempPos = tableList[a].getPos();
-        tableList[a].setPos(tableList[b].getPos());
-        tableList[b].setPos(tempPos);
+        for (let i = 0; i < REPEAT; i++) {
+            let a = randomIndex(tableList);
+            let b = randomIndex(tableList);
+    
+            let tempPos = tableList[a].getPos();
+            tableList[a].setPos(tableList[b].getPos());
+            tableList[b].setPos(tempPos);
+        }
 
         setTimeout(() => {
             if (this.#isShuffling == true) {
-                this.#swapTwoTable(tableList);
+                this.#repeatSwapTwoTable(tableList);
             }
         }, 1);
     }
